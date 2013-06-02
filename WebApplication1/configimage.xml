@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<web-app>
+....
+<context-param> 
+    <description>Location to store uploaded file</description> 
+    <param-name>file-upload</param-name> 
+    <param-value>
+         E:\Documents\Bsc Software\Object Orient System II\E-System\WebApplication1\images\
+     </param-value> 
+</context-param>
+....
+</web-app>
+
+<root>
+    
+</root>
