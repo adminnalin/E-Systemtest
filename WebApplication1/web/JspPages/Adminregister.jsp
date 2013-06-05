@@ -25,7 +25,7 @@
                             </div>
                          </td>
                 </tr>
-                <!--<tr>
+                <tr>
                       <td>
             <label>User Type:</label> 
                          </td>
@@ -39,7 +39,7 @@
               </div>
               </div>
                     </td>
-                    </tr>-->
+                    </tr>
                 <tr>
                       <td>
                          <label>First Name :</label> 
@@ -50,6 +50,7 @@
                             </div>
                     </td>
                      </tr>
+                     <tr>
                         <td>
                          <label>Last Name :</label> 
                          </td>

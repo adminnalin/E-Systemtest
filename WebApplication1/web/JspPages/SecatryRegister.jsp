@@ -1,6 +1,6 @@
 <%-- 
-    Document   : CandidateRegistration
-    Created on : Jun 1, 2013, 7:43:41 AM
+    Document   : SecatryRegister
+    Created on : Jun 5, 2013, 5:06:05 AM
     Author     : User
 --%>
 
@@ -13,7 +13,7 @@
     </head>
     <body>
         <h1>Hello World!</h1>
-        <form name="candiregform" method="get" action="../AdminRegister_Servlet" enctype="multipart/form-data">
+         <form name="adminregform" method="get" action="../AdminRegister_Servlet" enctype="multipart/form-data">
              <table>
                 <tr>
                     <td>
@@ -25,6 +25,21 @@
                             </div>
                          </td>
                 </tr>
+                <tr>
+                      <td>
+            <label>User Type:</label> 
+                         </td>
+                         <td>
+               <div>
+                 <select name="usrtyp">
+                    <option value="Administrator" >Administrator</option>
+                    <option value="Candidates"  >Candidates</option>
+                     <option value="Sectry" >Secutary</option>
+                    <option value="Voter" >Voter</option>
+                 </select> 
+              </div>
+                    </td>
+                    </tr>
                 <tr>
                       <td>
                          <label>First Name :</label> 
@@ -109,7 +124,7 @@
                 </tr>
                 <tr>
                     <td>
-                         <label>Candidate Picture :</label>
+                         <label>Profile Picture :</label>
                     </td>
                     <td>
                          <div> 
@@ -117,20 +132,6 @@
                       </div>
                     </td>
                 </tr>
-                  <tr>
-                      <td>
-            <label>Political Party :</label> 
-                         </td>
-                         <td>
-               <div>
-                 <select name="politicalparty">
-                    <option value="" >ABC</option>
-                    <option value="" >EFG</option>
-                    <option value="" >HIJ</option>
-                 </select> 
-              </div>
-                    </td>
-                    </tr>
                   <tr>
                     <td>
                          <label>User Name :</label>
@@ -162,28 +163,18 @@
                     </td>
                 </tr>
                  <tr>
-                     <td>
-                         <label>Seat Name :</label>
+                    <td>
+                         <label>Assign Political Party :</label>
                     </td>
                     <td>
                          <div> 
-                             <input type="text" name="seat" />
-                     </div>
-                    </td>
-                </tr>
-                  <tr>
-                     <td>
-                         <label>Election Number :</label>
-                    </td>
-                    <td>
-                         <div> 
-                             <input type="text" name="electno" />
+                             <input type="text" name="loc" />
                      </div>
                     </td>
                 </tr>
             </table>
             <br>
-            <input type="submit" value="Submit" name="ppartyregbtn" id="ppartyregbtn"/>
+            <input type="submit" value="Submit" name="adminregbtn" id="adminregbtn"/>
         </form>
     </body>
 </html>
