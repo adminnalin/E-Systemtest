@@ -16,7 +16,6 @@ public class AdminRegister extends UserRegister {
     
     Connection conn=Createconnection(); 
    
-    
     public boolean insertAdminDetail(int UserId,String location,String createdby,String createddate,String updatedby,String updateddate,String UserName, String Password, String Post)
     {
          boolean flage=false;
@@ -42,8 +41,11 @@ public class AdminRegister extends UserRegister {
                 if(loginrslt==true)
                 {
                     flage=true;
+                }else
+                {
+                    flage=false;
                 }
-                flage=false;
+                return flage;
             }
          }
          catch(Exception ex)

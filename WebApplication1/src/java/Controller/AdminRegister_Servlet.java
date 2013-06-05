@@ -5,6 +5,8 @@
 package Controller;
 
 import Model.AdminRegister;
+import Model.CandiRegister;
+import Model.CreateUserID;
 import Model.UserRegister;
 import java.io.File;
 import java.io.IOException;
@@ -50,6 +52,7 @@ public class AdminRegister_Servlet extends HttpServlet {
         
         AdminRegister adminReg=new AdminRegister();
         UserRegister userreg=new UserRegister();
+        CandiRegister candiReg=new CandiRegister();
         byte[] image=null; 
 
         try {
@@ -58,7 +61,7 @@ public class AdminRegister_Servlet extends HttpServlet {
                     DiskFileItemFactory factory = new DiskFileItemFactory(); 
                     ServletFileUpload sfu = new ServletFileUpload(factory); 
                     List items = sfu.parseRequest(request); 
-                    Iterator iter = items.iterator(); 
+                    Iterator iter = items.iterator();
                     //SimpleDateFormat convertDate = new SimpleDateFormat("MMM dd yyyy"); 
                     
                     String userCode="usercode";//request.getParameter("usercode");
@@ -83,6 +86,7 @@ public class AdminRegister_Servlet extends HttpServlet {
                     String createddate="xxx"; 
                     String updatedby=null;
                     String updateddate=null;
+
                     String usernm="username";//request.getParameter("username");
                     String pass="password";//request.getParameter("password");
                     
@@ -106,6 +110,19 @@ public class AdminRegister_Servlet extends HttpServlet {
                                      response.sendRedirect("~/JspPages/Adminregister.jsp");
                                 }
                               }
+                            if(post.equals("Candidate"))
+                            {
+                                 int party=Integer.parseInt(request.getParameter("politicalparty"));
+                                 String seat=request.getParameter("seat");
+                                 String electNo=request.getParameter("electno");
+                                 boolean boolrs1=candiReg.insertCandiDetail(UserId,party,seat,electNo,createdby,createddate,updatedby, updateddate,usernm,pass,post);
+                                 if(boolrs1==true)
+                                {
+                                     HttpSession session=request.getSession(true);
+                                     session.setAttribute("Register", "Sucess");
+                                     response.sendRedirect("~/JspPages/Adminregister.jsp");
+                                }
+                            }
                         }
                         else
                         {
@@ -119,7 +136,7 @@ public class AdminRegister_Servlet extends HttpServlet {
                          HttpSession session=request.getSession(true);
                          session.setAttribute("RegisterError", "Error");
                          response.sendRedirect("~/JspPages/Adminregister.jsp");
-                    }
+                    }                  
                 }
         } 
         catch(Exception ex)
