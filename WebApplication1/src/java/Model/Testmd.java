@@ -9,7 +9,10 @@ import com.mysql.jdbc.PreparedStatement;
 import java.sql.*;
 import javax.crypto.*;
 import java.security.*;
+import java.security.spec.KeySpec;
+import javax.crypto.spec.DESedeKeySpec;
 import org.apache.catalina.util.Base64;
+import sun.misc.*; 
 
 /**
  *
@@ -17,11 +20,8 @@ import org.apache.catalina.util.Base64;
  */
 public class Testmd extends Dbconnection{
     
-  java.sql.Connection conn=Createconnection();
-  private static String algorithm = "DESede";
-  private static Key key = null;
-  private static Cipher cipher = null;
-  
+ java.sql.Connection conn=Createconnection();
+    
 public void insertimage(byte[] b) {
         boolean f=false;
     
@@ -55,31 +55,6 @@ public ResultSet getimages() {
         }
     }
     
-  public String addpas(String input)
-  {
-      String passw=null;
-      try
-      {
-          if(input!=null)
-          {
-            key = KeyGenerator.getInstance(algorithm).generateKey();
-            cipher = Cipher.getInstance(algorithm);
-            byte[] encryptionBytes = encrypt(input);
-            passw=new String(encryptionBytes);
-           return passw;
-           //insertpass(passw);
-          }
-      }
-      catch(Exception x)
-      {
-          x.toString();
-      }
-      finally
-      {
-           return passw;
-      }
-     
-  }
   
   public boolean  insertpass(String passw) throws SQLException
   {
@@ -90,32 +65,43 @@ public ResultSet getimages() {
        return f;
   }
   
- private static byte[] encrypt(String input)throws Exception {
-       
-            cipher.init(Cipher.ENCRYPT_MODE, key);
-            byte[] inputBytes = input.getBytes();
-            return cipher.doFinal(inputBytes);
-                 
-        }
- 
- private static String decrypt(byte[] encryptionBytes)throws Exception {
-            cipher.init(Cipher.DECRYPT_MODE, key);
-            /*String recoveredBytes = encryptionBytes.toString();
-            String recovered = new String(recoveredBytes);
-            return recovered;*/
-            byte[] recoveredBytes =  cipher.doFinal(encryptionBytes);
-            String recovered =  new String(recoveredBytes.toString());
-            return recovered;
-          }
- 
- public String ConvrtPasss(String Pass) throws Exception
+  public String  encrypt(String pass)
+  {
+      String plainData=pass,cipherText,decryptedText;
+      try
+      {
+    KeyGenerator keyGen = KeyGenerator.getInstance("AES");
+    keyGen.init(128);
+    SecretKey secretKey = keyGen.generateKey();
+    Cipher aesCipher = Cipher.getInstance("AES");
+    aesCipher.init(Cipher.ENCRYPT_MODE,secretKey);
+    byte[] byteDataToEncrypt = plainData.getBytes();
+    byte[] byteCipherText = aesCipher.doFinal(byteDataToEncrypt);
+    cipherText = new BASE64Encoder().encode(byteCipherText);
+    aesCipher.init(Cipher.DECRYPT_MODE,secretKey,aesCipher.getParameters());
+    byte[] byteDecryptedText = aesCipher.doFinal(byteCipherText);
+    decryptedText = new String(byteDecryptedText);
+    System.out.println("\n Plain Data : "+plainData+
+    " \n Cipher Data : "+cipherText+" \n Decrypte");
+    return decryptedText;
+      }
+      catch(Exception ex)
+      {
+          
+      }
+      return plainData;
+  }
+  
+  
+ public String CallMainFunction(String abc)
  {
-
-       key = KeyGenerator.getInstance(algorithm).generateKey();
-      cipher = Cipher.getInstance(algorithm);
-       String abc=decrypt(Pass.getBytes()).toString();
-     return abc;
+   String Rest= encrypt(abc);
+    return Rest;
+    
  }
+ 
+ 
+
 
     public ResultSet chekpass() {
         ResultSet rs=null;
