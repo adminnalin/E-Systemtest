@@ -102,8 +102,21 @@ public class test extends HttpServlet {
         {
             Testmd tst=new Testmd();
             String password=request.getParameter("pass");
-            String rst=tst.CallMainFunction(password);
-
+            ResultSet rst=tst.chekpass();
+            String pass="";
+            if(rst.next()){
+            pass=rst.getString("bImage");
+            String xyz=tst.ConvrtPasss(pass);
+                if(xyz.equals(password))
+                {
+                System.out.println("Your password is Match");
+                }
+                else
+                {
+                   
+                System.out.println("Your "); 
+                }
+            }
 
         }
         catch(Exception ex)
